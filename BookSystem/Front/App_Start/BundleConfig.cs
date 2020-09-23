@@ -42,6 +42,11 @@ namespace Front
               ));
 
 
+            // STYLES //
+            bundles.Add(new StyleBundle("~/Content/css/").Include(
+              "~/Content/css/_layout.css"
+            ));
+
             //bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include("~/Scripts/jquery.validate*"));

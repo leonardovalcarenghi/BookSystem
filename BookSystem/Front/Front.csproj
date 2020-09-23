@@ -101,6 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\_layout.css" />
     <Content Include="plugins\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="plugins\bootstrap\css\bootstrap-reboot.min.css" />
     <Content Include="plugins\bootstrap\css\bootstrap.min.css" />
@@ -115,6 +116,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -131,6 +133,7 @@
     <Content Include="plugins\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="plugins\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="plugins\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Views\Books\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -140,7 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\css\" />
     <Folder Include="Content\img\" />
     <Folder Include="Content\js\" />
     <Folder Include="Models\" />
