@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - BookSystem</title>
+
+
+    <!-- Styles -->
+    @Styles.Render("~/plugins/font-awesome/css")
+    @Styles.Render("~/plugins/bootstrap/css")
+
+    <!-- Scripts -->
+    @Scripts.Render("~/plugins/jquery/js")
+    @Scripts.Render("~/plugins/bootstrap/js")
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">BookSystem</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <form class="form-inline my-1 my-lg-0">
+                <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="$('#LoginModal').modal('show');">Entrar</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+
+</body>
+</html>

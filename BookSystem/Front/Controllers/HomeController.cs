@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace Front.Controllers
 {
-    public class LoginController : Controller
+    public class HomeController : Controller
     {
-        // GET: Login
+        // GET: Home
         public ActionResult Index()
         {
             return View();
