@@ -1,11 +1,6 @@
 ﻿
 
-const Request = (method = 'GET', api = '', parameters = {}) => {
-
-    var callBackOK = null, callbackError = null
-    this.Success = (callback) => { callBackOK = callback; return this; }
-    this.Error = (callback) => { callbackError = callback; return this; }
-
+const Request = (method = 'GET', api = '', parameters = {}, callBackOk, callbackError) => {
 
     // Ajustar API:
     api = API_URL[Enviroment] + api;
@@ -22,9 +17,9 @@ const Request = (method = 'GET', api = '', parameters = {}) => {
             var statusCode = requestXHR.status;
             var response = ParseJSON(requestXHR.responseText);
 
-            if (statusCode == 200) {
-                if (IsFunction(callBackOK)) { callBackOK(response); }
-            }
+            if (statusCode == 200) { if (IsFunction(callBackOk)) { callBackOk(response); } return this; }
+            if (statusCode == 400) { if (IsFunction(callbackError)) { callbackError(response); } return this; }
+            if (statusCode == 500) { if (IsFunction(callbackError)) { callbackError(response); } return this; }
 
         }
 
@@ -33,7 +28,7 @@ const Request = (method = 'GET', api = '', parameters = {}) => {
 
     requestXHR.open(method, api, true);
     requestXHR.setRequestHeader('Content-type', 'application/json');
-    requestXHR.setRequestHeader('Authentication', authentication == null ? '' : authentication);
+    if (authentication != null) { requestXHR.setRequestHeader('Authentication', authentication); }
     requestXHR.send(parameters == null ? null : JSON.stringify(parameters));
 
     return this;

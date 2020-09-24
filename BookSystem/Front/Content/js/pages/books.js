@@ -24,13 +24,10 @@ var component =
     </div>`
 
 function GetList() {
-    Request('GET', '/books/get', null)
-        .Success(data => {
-            RenderList(data);
-        })
-        .Error(error => {
-            alert('Erro ao buscar lista de livros. \n' + error);
-        })
+    Request('GET', '/books/get', null,
+        data => { RenderList(data); },
+        error => { alert('Erro ao buscar lista de livros. \n' + error); }
+    )
 }
 
 function RenderList(list = []) {
@@ -50,7 +47,7 @@ function RenderList(list = []) {
     // Visualizar Detalhes do Livro:
     $('.book-item .details').click(e => {
         var bookId = $(e.target).closest('.book-item').attr('book-id');
-        window.location.href = 'details?id=' + bookId;
+        window.location.href = '/books/details?id=' + bookId;
     })
 
     // Alugar Livro:
@@ -69,5 +66,8 @@ function RenderList(list = []) {
 
 
 $(function () {
-    GetList();
+
+    // Esperar um pouco para poder ver a animação de carregamento:
+    setTimeout(f => { GetList(); }, 1000)
+
 })

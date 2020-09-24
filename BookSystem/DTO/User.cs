@@ -8,6 +8,8 @@ namespace BookSystem.DTO
 {
     public class UserDTO
     {
+        public int Id { get; set; }
+
         /// <summary>
         /// Nome do usuário.
         /// </summary>

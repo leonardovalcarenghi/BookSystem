@@ -17,9 +17,7 @@ namespace BookSystem.Business
         /// <summary>
         /// Login
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
-        public static void Login(string email, string password)
+        public static string Login(string email, string password)
         {
             try
             {
@@ -30,6 +28,9 @@ namespace BookSystem.Business
                 // Verificar senha:
                 password = Utils.Hash256(password);
                 if (password != user.Password) { throw new AppException("Senha incorreta."); }
+
+
+                return "";
             }
             catch (AppException AppEx) { throw AppEx; }
             catch (Exception Ex) { throw Ex; }
@@ -45,7 +46,10 @@ namespace BookSystem.Business
         {
             try
             {
-                throw new NotImplementedException();
+                if (string.IsNullOrEmpty(email)) { throw new AppException("E-mail do usuário não fornecido."); }
+                UserDTO user = BookSystem.DataBase.User.Get(email);
+                if (!getPassword) { user.Password = null; }
+                return user;
             }
             catch (AppException AppEx) { throw AppEx; }
             catch (Exception Ex) { throw Ex; }
@@ -55,6 +59,25 @@ namespace BookSystem.Business
         /// Obter informações do usuário pelo id do mesmo.
         /// </summary>
         public static UserDTO Get(int id, bool getPassword = false)
+        {
+            try
+            {
+                if (id == 0) { throw new AppException("Identificador do usuário não fornecido."); }
+                UserDTO user = BookSystem.DataBase.User.Get(id);
+                if (!getPassword) { user.Password = null; }
+                return user;
+            }
+            catch (AppException AppEx) { throw AppEx; }
+            catch (Exception Ex) { throw Ex; }
+        }
+
+
+        /// <summary>
+        /// Buscar usuário vinculado ao token.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public static UserDTO Get(string token)
         {
             try
             {

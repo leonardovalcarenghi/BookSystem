@@ -105,6 +105,7 @@
     <Content Include="Content\js\enum.js" />
     <Content Include="Content\js\enviroment.js" />
     <Content Include="Content\js\pages\book-details.js" />
+    <Content Include="Content\js\pages\login.js" />
     <Content Include="Content\js\requestXHR.js" />
     <Content Include="Content\js\utils.js" />
     <Content Include="plugins\bootstrap\css\bootstrap-grid.min.css" />
