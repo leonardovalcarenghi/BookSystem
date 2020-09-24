@@ -102,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\_layout.css" />
+    <Content Include="Content\js\requestXHR.js" />
+    <Content Include="Content\js\utils.js" />
     <Content Include="plugins\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="plugins\bootstrap\css\bootstrap-reboot.min.css" />
     <Content Include="plugins\bootstrap\css\bootstrap.min.css" />
@@ -144,7 +146,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\" />
-    <Folder Include="Content\js\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
