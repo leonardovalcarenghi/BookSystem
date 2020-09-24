@@ -1,0 +1,1 @@
+SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID WHERE B.BookID = @BookID

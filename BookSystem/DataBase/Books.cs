@@ -14,7 +14,7 @@ namespace BookSystem.DataBase
         {
             BookDTO book = null;
             SqlConnection ConnectSQL = new SqlConnection(_DataBase.ConnectionString);
-            string SQL = "SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID WHERE B.BookID = @BookID";
+            string SQL = Querys.Books.GetById;
 
             try
             {

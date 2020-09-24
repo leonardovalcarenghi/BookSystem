@@ -43,6 +43,22 @@
   <ItemGroup>
     <Compile Include="Books.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Querys\Books.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Books.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Querys\Tokens.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tokens.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Querys\User.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>User.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tokens.cs" />
     <Compile Include="User.cs" />
     <Compile Include="_DataBase.cs" />
   </ItemGroup>
@@ -51,6 +67,41 @@
       <Project>{5d50e998-fe48-4a30-a2f2-fd06f9b1e6cb}</Project>
       <Name>DTO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Books\GetAll.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Books\GetById.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User\GetByEmail.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User\GetById.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User\GetByToken.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Querys\Books.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Books.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Querys\Tokens.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tokens.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Querys\User.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>User.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tokens\New.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tokens\Get.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
