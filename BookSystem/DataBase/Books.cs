@@ -14,7 +14,7 @@ namespace BookSystem.DataBase
         {
             BookDTO book = null;
             SqlConnection ConnectSQL = new SqlConnection(_DataBase.ConnectionString);
-            string SQL = "SELECT * FROM Books WHERE BookID = @BookID";
+            string SQL = "SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID WHERE B.BookID = @BookID";
 
             try
             {
@@ -36,6 +36,9 @@ namespace BookSystem.DataBase
                     book.Pages = readDataBase["Pages"].ToString() != "" ? Convert.ToInt32(readDataBase["Pages"].ToString()) : 0;
                     book.Publisher = readDataBase["Publisher"].ToString();
                     book.Year = readDataBase["Year"].ToString();
+
+                    var obj = readDataBase["Status"].ToString();
+                    book.Available = (obj == "" ? true : false);
                 }
                 return book;
             }
@@ -48,7 +51,7 @@ namespace BookSystem.DataBase
         {
             List<BookDTO> listOfBooks = null;
             SqlConnection ConnectSQL = new SqlConnection(_DataBase.ConnectionString);
-            string SQL = "SELECT * FROM Books";
+            string SQL = "SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID";
 
             try
             {
@@ -70,6 +73,10 @@ namespace BookSystem.DataBase
                     book.Pages = readDataBase["Pages"].ToString() != "" ? Convert.ToInt32(readDataBase["Pages"].ToString()) : 0;
                     book.Publisher = readDataBase["Publisher"].ToString();
                     book.Year = readDataBase["Year"].ToString();
+
+                    var obj = readDataBase["Status"].ToString();
+                    book.Available = (obj == "" ?  true: false);
+
                     listOfBooks.Add(book);
                 }
                 return listOfBooks;

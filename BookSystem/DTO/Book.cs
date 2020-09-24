@@ -53,6 +53,11 @@ namespace BookSystem.DTO
         /// </summary>
         public int Pages { get; set; }
 
+        /// <summary>
+        /// Livro está disponível para locação.
+        /// </summary>
+        public bool Available { get; set; }
+
 
 
 

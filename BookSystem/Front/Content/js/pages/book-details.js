@@ -4,7 +4,7 @@
             ShowInformations(data);
         })
         .Error(error => {
-            alert('Erro ao buscar lista de livros. \n' + error);
+            alert('Erro ao buscar dados do livro \n' + error);
         })
 }
 
@@ -16,10 +16,13 @@ function ShowInformations(book = {}) {
     if (book.Description == '') { $('#DescriptionSection').hide() } else { $('#BookDescription').html(book.Description); }
     if (book.Publisher == '') { $('#PublisherSection').hide() } else { $('#BookPublisher').html(book.Publisher); }
     if (book.Year == '') { $('#YearSection').hide() } else { $('#BookYear').html(book.Year); }
-    if (book.Pages == 0) { $('#PagesSection').hide() } else { $('#BookPages').html(book.Pages);}
-   
-    
-   
+    if (book.Pages == 0) { $('#PagesSection').hide() } else { $('#BookPages').html(book.Pages); }
+    if (book.Available == false) {
+        $('#RentButton').attr('disabled', 'disabled');
+        $('#RentButton span').html('Indisponível');
+    }
+
+
 }
 
 $(function () {
