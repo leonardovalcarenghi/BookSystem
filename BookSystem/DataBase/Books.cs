@@ -31,6 +31,11 @@ namespace BookSystem.DataBase
                     book.Name = readDataBase["Name"].ToString();
                     book.Author = readDataBase["Author"].ToString();
                     book.ImageURL = readDataBase["ImageURL"].ToString();
+                    book.Category = readDataBase["Category"].ToString();
+                    book.Description = readDataBase["Description"].ToString();
+                    book.Pages = Convert.ToInt32(readDataBase["Pages"].ToString());
+                    book.Publisher = readDataBase["Publisher"].ToString();
+                    book.Year = readDataBase["Year"].ToString();
                 }
                 return book;
             }
@@ -60,6 +65,11 @@ namespace BookSystem.DataBase
                     book.Name = readDataBase["Name"].ToString();
                     book.Author = readDataBase["Author"].ToString();
                     book.ImageURL = readDataBase["ImageURL"].ToString();
+                    book.Category = readDataBase["Category"].ToString();
+                    book.Description = readDataBase["Description"].ToString();
+                    book.Pages = Convert.ToInt32(readDataBase["Pages"].ToString()); 
+                    book.Publisher = readDataBase["Publisher"].ToString();
+                    book.Year = readDataBase["Year"].ToString();
                     listOfBooks.Add(book);
                 }
                 return listOfBooks;
