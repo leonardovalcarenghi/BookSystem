@@ -13,6 +13,30 @@ namespace BookSystem.Business
     /// </summary>
     public static class User
     {
+
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        public static void Login(string email, string password)
+        {
+            try
+            {
+                // Buscar usuário:
+                UserDTO user = Get(email, true);
+                if (user == null) { throw new AppException("Nenhum usuário encontrado."); }
+
+                // Verificar senha:
+                password = Utils.Hash256(password);
+                if (password != user.Password) { throw new AppException("Senha incorreta."); }
+            }
+            catch (AppException AppEx) { throw AppEx; }
+            catch (Exception Ex) { throw Ex; }
+        }
+
+
+
         /// <summary>
         /// Obter informações do usuário pelo login (e-mail).
         /// </summary>
