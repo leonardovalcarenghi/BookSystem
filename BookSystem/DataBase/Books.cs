@@ -33,7 +33,7 @@ namespace BookSystem.DataBase
                     book.ImageURL = readDataBase["ImageURL"].ToString();
                     book.Category = readDataBase["Category"].ToString();
                     book.Description = readDataBase["Description"].ToString();
-                    book.Pages = Convert.ToInt32(readDataBase["Pages"].ToString());
+                    book.Pages = readDataBase["Pages"].ToString() != "" ? Convert.ToInt32(readDataBase["Pages"].ToString()) : 0;
                     book.Publisher = readDataBase["Publisher"].ToString();
                     book.Year = readDataBase["Year"].ToString();
                 }
@@ -55,7 +55,7 @@ namespace BookSystem.DataBase
                 SqlCommand sqlCommand = new SqlCommand(SQL, ConnectSQL);
                 sqlCommand.CommandType = System.Data.CommandType.Text;
                 ConnectSQL.Open();
-           
+
                 SqlDataReader readDataBase = sqlCommand.ExecuteReader();
                 while (readDataBase.Read())
                 {
@@ -67,7 +67,7 @@ namespace BookSystem.DataBase
                     book.ImageURL = readDataBase["ImageURL"].ToString();
                     book.Category = readDataBase["Category"].ToString();
                     book.Description = readDataBase["Description"].ToString();
-                    book.Pages = Convert.ToInt32(readDataBase["Pages"].ToString()); 
+                    book.Pages = readDataBase["Pages"].ToString() != "" ? Convert.ToInt32(readDataBase["Pages"].ToString()) : 0;
                     book.Publisher = readDataBase["Publisher"].ToString();
                     book.Year = readDataBase["Year"].ToString();
                     listOfBooks.Add(book);

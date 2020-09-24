@@ -1,3 +1,45 @@
 ﻿body {
     padding-top: 4.5rem;
 }
+
+
+label {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+#BookAuthor {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 2px;
+    font-weight: 100;
+    color: gray;
+}
+
+#BookCover {
+    width: 100%;
+}
+
+.book-item {
+    padding-bottom: 20px;
+    padding-top: 30px;
+    border-bottom: 1px solid rgb(220,220,220);
+    ;
+    transition-duration: .4s;
+}
+
+    .book-item:hover {
+        background-color: rgb(230,230,230);
+    }
+
+    .book-item h5 small {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 2px;
+        font-weight: 100;
+        color: gray;
+    }
+
+    .book-item img {
+        width: 100%;
+    }

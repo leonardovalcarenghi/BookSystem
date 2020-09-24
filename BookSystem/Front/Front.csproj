@@ -102,6 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\_layout.css" />
+    <Content Include="Content\js\enum.js" />
+    <Content Include="Content\js\enviroment.js" />
+    <Content Include="Content\js\pages\book-details.js" />
     <Content Include="Content\js\requestXHR.js" />
     <Content Include="Content\js\utils.js" />
     <Content Include="plugins\bootstrap\css\bootstrap-grid.min.css" />
@@ -113,6 +116,7 @@
     <Content Include="plugins\font-awesome\css\font-awesome.min.css" />
     <Content Include="plugins\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="plugins\jquery\js\jquery.min.js" />
+    <Content Include="Content\js\pages\books.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +140,19 @@
     <Content Include="plugins\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="plugins\font-awesome\fonts\FontAwesome.otf" />
     <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\Books\Details.cshtml" />
+    <Content Include="plugins\font-awesome\webfonts\fa-brands-400.eot" />
+    <Content Include="plugins\font-awesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="plugins\font-awesome\webfonts\fa-brands-400.woff" />
+    <Content Include="plugins\font-awesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="plugins\font-awesome\webfonts\fa-regular-400.eot" />
+    <Content Include="plugins\font-awesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="plugins\font-awesome\webfonts\fa-regular-400.woff" />
+    <Content Include="plugins\font-awesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="plugins\font-awesome\webfonts\fa-solid-900.eot" />
+    <Content Include="plugins\font-awesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="plugins\font-awesome\webfonts\fa-solid-900.woff" />
+    <Content Include="plugins\font-awesome\webfonts\fa-solid-900.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

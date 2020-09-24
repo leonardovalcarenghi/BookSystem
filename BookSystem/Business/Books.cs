@@ -18,7 +18,8 @@ namespace BookSystem.Business
         {
             try
             {
-                throw new NotImplementedException();
+                BookDTO book = BookSystem.DataBase.Books.Get(id);
+                return book;
             }
             catch (AppException AppEx) { throw AppEx; }
             catch (Exception Ex) { throw Ex; }
@@ -48,7 +49,8 @@ namespace BookSystem.Business
         {
             try
             {
-                throw new NotImplementedException();
+                List<BookDTO> listOfBooks = BookSystem.DataBase.Books.GetAll();
+                return listOfBooks;
             }
             catch (AppException AppEx) { throw AppEx; }
             catch (Exception Ex) { throw Ex; }

@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Detalhes do livro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Content/js/pages/book-details.js")"></script>
+}
+
+
+
+<div class="row mt-5">
+
+    <div class="col-md-4 mb-3">
+        <img id="BookCover" src="http://lojasaraiva.vteximg.com.br/arquivos/ids/12109069/1006574337.jpg?v=637142248039070000" />
+    </div>
+
+    <div class="col-md-8">
+
+        <div class="row mb-3" id="NameSection">
+            <div class="col-md-12">
+                <h2>
+                    <small id="BookAuthor">autor </small>
+                    <span id="BookTitle">nome</span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="row" id="DescriptionSection">
+            <div class="col-md-12">
+                <label>Descrição</label>
+                <p id="BookDescription">descrição</p>
+            </div>
+        </div>
+
+        <div class="row" id="PublisherSection">
+            <div class="col-md-12">
+                <label>Editora</label>
+                <p id="BookPublisher">Faro Editorial</p>
+            </div>
+        </div>
+
+        <div class="row" id="YearSection">
+            <div class="col-md-12">
+                <label>Ano de lançamento</label>
+                <p id="BookYear">ano</p>
+            </div>
+        </div>
+
+        <div class="row" id="PagesSection">
+            <div class="col-md-12">
+                <label>Nº de páginas</label>
+                <p id="BookPages">página</p>
+            </div>
+        </div>
+
+        <div class="row mb-5" id="OptionsSection">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-outline-info float-right" id="BackButton">Voltar</button>
+                    <button type="button" class="btn btn-primary float-right mr-2 px-4" id="RentButton">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        <span>Alugar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <style>
+    
+    </style>

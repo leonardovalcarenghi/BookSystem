@@ -13,5 +13,10 @@ namespace Front.Controllers
         {
             return View();
         }
+
+        public ActionResult Details()
+        {
+            return View();
+        }
     }
 }

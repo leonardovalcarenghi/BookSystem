@@ -19,8 +19,14 @@
     @Scripts.Render("~/plugins/jquery/js")
     @Scripts.Render("~/plugins/bootstrap/js")
 
+    <script src="@Url.Content("~/Content/js/enum.js")"></script>
+    <script src="@Url.Content("~/Content/js/enviroment.js")"></script>
+    <script src="@Url.Content("~/Content/js/utils.js")"></script>
+    <script src="@Url.Content("~/Content/js/requestXHR.js")"></script>
+
+
 </head>
-<body >
+<body>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">BookSystem</a>
@@ -40,6 +46,43 @@
     <main role="main" class="container mt-3">
         @RenderBody()
     </main>
+
+
+
+
+    <!-- Modal: Confirmar Locação -->
+    <div class="modal fade" id="ConfirmRentModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Alugar livro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Confirma aluguel do livro?</p>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary btn-block">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        <span>Continuar</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-default btn-block" data-dismiss="modal">
+                        <i class="fas fa-times mr-1"></i>
+                        <span>Cancelar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

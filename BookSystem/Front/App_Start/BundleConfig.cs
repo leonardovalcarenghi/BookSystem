@@ -9,10 +9,12 @@ namespace Front
         public static void RegisterBundles(BundleCollection bundles)
         {
 
+            // SCRIPTS //
 
-            //bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/bootstrap.css", "~/Content/site.css"));
-
-
+            bundles.Add(new ScriptBundle("~/Content/js").Include(
+             "~/Content/js/utils.js",
+             "~/Content/js/requestXHR.js"
+             ));
 
             // PLUGINS //
 
@@ -47,16 +49,9 @@ namespace Front
               "~/Content/css/_layout.css"
             ));
 
-            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include("~/Scripts/jquery.validate*"));
 
-            //// Use a versão em desenvolvimento do Modernizr para desenvolver e aprender. Em seguida, quando estiver
-            //// pronto para a produção, utilize a ferramenta de build em https://modernizr.com para escolher somente os testes que precisa.
-            //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include("~/Scripts/modernizr-*"));
-
-            //
-
+        
 
         }
     }
