@@ -1,4 +1,5 @@
-﻿using BookSystemException;
+﻿using BookSystem.DTO;
+using BookSystemException;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +19,40 @@ namespace BookSystem.Business
         {
             try
             {
-                string token = HttpContext.Current.Request.Headers["Authentication"];
-                if (string.IsNullOrEmpty(token)) { throw new AppException("Usuário não autenticado."); }
+                string authenticationToken = HttpContext.Current.Request.Headers["Authentication"];
+                if (string.IsNullOrEmpty(authenticationToken)) { throw new AppException("Usuário não autenticado."); }
 
-                /* to do: consultar no banco se token existe e está vinculado à algum usuário e se está dentro de periodo de vigencia */
+                // Buscar token e validar:
+                TokenDTO token = BookSystem.DataBase.Tokens.Get(authenticationToken);
+                if (!token.IsValid) { throw new AppException("O token informado não é mais válido."); }
+                if (token.ExpirationDate > DateTime.Now) { throw new AppException("Sua sessão expirou."); }
 
-
+                // Buscar usuário vinculado ao token:
+                UserDTO user = User.GetByToken(authenticationToken);
 
             }
             catch (AppException AppEx) { throw AppEx; }
             catch (Exception Ex) { throw Ex; }
         }
 
+        /// <summary>
+        /// Gerar novo token para o usuário
+        /// </summary>
+        /// <param name="userId"></param>
+        public static string NewToken(int userId)
+        {
+            try
+            {
+                string token = BookSystem.DataBase.Tokens.New(userId);
+                if (string.IsNullOrEmpty(token)) { throw new AppException("O token de acesso não pode ser gerado."); }
+                return token;
+            }
+            catch (AppException AppEx) { throw AppEx; }
+            catch (Exception Ex) { throw Ex; }
+        }
 
-      
+
+
 
     }
 }

@@ -38,7 +38,7 @@
             <ul class="navbar-nav mr-auto">
             </ul>
             <form class="form-inline my-1 my-lg-0">
-                <button id="LoginButton" type="button" class="btn btn-outline-light my-2 my-sm-0" >Entrar</button>
+                <button id="LoginButton" type="button" class="btn btn-outline-light my-2 my-sm-0">Entrar</button>
             </form>
         </div>
     </nav>
@@ -83,6 +83,12 @@
 
 
     @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        window.onload = (e) => {
+            if (GetCookie('Authentication') == null) { $('#LoginButton').show(); } else { $('#LoginButton').hide(); }
+        }
+    </script>
 
 </body>
 </html>

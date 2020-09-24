@@ -29,8 +29,9 @@ namespace BookSystem.Business
                 password = Utils.Hash256(password);
                 if (password != user.Password) { throw new AppException("Senha incorreta."); }
 
-
-                return "";
+                // Gerar novo token:
+                string token = Authentication.NewToken(user.Id);
+                return token;
             }
             catch (AppException AppEx) { throw AppEx; }
             catch (Exception Ex) { throw Ex; }
@@ -77,11 +78,14 @@ namespace BookSystem.Business
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static UserDTO Get(string token)
+        public static UserDTO GetByToken(string token)
         {
             try
             {
-                throw new NotImplementedException();
+                if (string.IsNullOrEmpty(token)) { throw new AppException("Token do usuário não foi informado."); }
+                UserDTO user = BookSystem.DataBase.User.GetByToken(token);
+                user.Password = null;
+                return user;
             }
             catch (AppException AppEx) { throw AppEx; }
             catch (Exception Ex) { throw Ex; }

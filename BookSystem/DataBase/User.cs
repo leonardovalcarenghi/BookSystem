@@ -69,5 +69,35 @@ namespace BookSystem.DataBase
 
 
         }
+
+        public static UserDTO GetByToken(string token)
+        {
+            UserDTO user = null;
+            SqlConnection ConnectSQL = new SqlConnection(_DataBase.ConnectionString);
+            string SQL = Querys.User.GetByToken;
+
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand(SQL, ConnectSQL);
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                ConnectSQL.Open();
+                sqlCommand.Parameters.Add(new SqlParameter("@Token", token));
+
+                SqlDataReader readDataBase = sqlCommand.ExecuteReader();
+                while (readDataBase.Read())
+                {
+                    user = new UserDTO();
+                    user.Id = Convert.ToInt32(readDataBase["UserID"].ToString());
+                    user.Name = readDataBase["Name"].ToString();
+                    user.Email = readDataBase["Email"].ToString();
+                    user.Password = readDataBase["Password"].ToString();
+                }
+                return user;
+            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            finally { ConnectSQL.Close(); }
+
+
+        }
     }
 }
