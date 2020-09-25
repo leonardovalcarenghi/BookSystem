@@ -16,7 +16,7 @@ var component =
                     <button type="button" class="btn btn-outline-info float-right details">Detalhes</button>
                     <button type="button" class="btn btn-primary float-right mr-2 px-3 rent" [AVAILABLE]>
                         <i class="fas fa-shopping-cart mr-1"></i>
-                        <span>Alugar</span>
+                        <span>[TEXTO]</span>
                     </button>
                 </div>
             </div>
@@ -40,6 +40,7 @@ function RenderList(list = []) {
         html = html.replace('[AUTOR]', BOOK.Author);
         html = html.replace('[LIVRO]', BOOK.Name);
         html = html.replace('[AVAILABLE]', (BOOK.Available == false ? 'disabled="disabled"' : ''));
+        html = html.replace('[TEXTO]', (BOOK.Available == false ? 'Indisponível' : 'Alugar'));
         $('#BooksList').append(html);
     });
 
@@ -54,9 +55,30 @@ function RenderList(list = []) {
     $('.book-item .rent').click(e => {
         var bookId = $(e.target).closest('.book-item').attr('book-id');
         $('#ConfirmRentModal').modal('show');
+        $('#ConfirmRentModal .ok').unbind('click').click(f => {
+            RentBook(bookId);
+        })
     })
 
 
+}
+
+
+function RentBook(id) {
+    $('#ConfirmRentModal .ok').attr('disabled', 'disabled');
+    $('#ConfirmRentModal .ok span').html('Alugando...')
+
+    Request('POST', '/book/rent', id,
+        data => {
+            alert('Livro alugado com sucesso!');
+            GetList();
+        },
+        error => {
+            alert('Erro ao alugar livro: \n' + error);
+            $('#ConfirmRentModal .ok').removeAttr('disabled');
+            $('#ConfirmRentModal .ok span').html('Alugar')
+        }
+    )
 }
 
 

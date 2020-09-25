@@ -25,13 +25,13 @@ namespace BookSystem.Business
                 // Buscar token e validar:
                 TokenDTO token = BookSystem.DataBase.Tokens.Get(authenticationToken);
                 if (!token.IsValid) { throw new AppException("O token informado não é mais válido."); }
-                if (token.ExpirationDate > DateTime.Now) { throw new AppException("Sua sessão expirou."); }
+                if (DateTime.Now  >token.ExpirationDate ) { throw new AppException("Sua sessão expirou."); }
 
                 // Buscar usuário vinculado ao token:
                 UserDTO user = User.GetByToken(authenticationToken);
                 User.Id = user.Id;
                 User.Name = user.Name;
-                User.Email = user.Email
+                User.Email = user.Email;
 
             }
             catch (AppException AppEx) { throw AppEx; }

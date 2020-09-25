@@ -100,7 +100,8 @@ namespace BookSystem.DataBase
                 sqlCommand.Parameters.Add(new SqlParameter("@UserID", userId));
 
                 object response = sqlCommand.ExecuteScalar();
-                if (response.ToString() == "LIVRO_ALUGADO") { throw new AppException("O livro solicitado já está alugado."); }
+
+                if (response != null && response.ToString() == "LIVRO_ALUGADO") { throw new AppException("O livro solicitado já está alugado."); }
             }
             catch (SqlException sqlEx) { throw sqlEx; }
             finally { ConnectSQL.Close(); }

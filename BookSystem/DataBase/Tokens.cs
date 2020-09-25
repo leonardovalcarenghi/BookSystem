@@ -48,7 +48,7 @@ namespace BookSystem.DataBase
                 while (readDataBase.Read())
                 {
                     token = new TokenDTO();
-                    token.Token = token;
+                    token.Token = tokenguid;
                     token.UserId = Convert.ToInt32(readDataBase["UserID"].ToString());
                     token.IsValid = bool.Parse(readDataBase["Active"].ToString());
                     token.ExpirationDate = DateTime.Parse(readDataBase["ExpirationDate"].ToString());           
