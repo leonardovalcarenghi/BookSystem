@@ -103,7 +103,7 @@ namespace BookSystem.DataBase
 
                 object response = sqlCommand.ExecuteScalar();
 
-                if (response != null && response.ToString() == "LIVRO_ALUGADO") { throw new AppException("O livro solicitado já está alugado."); }
+                if (response != null && response.ToString() == "LIVRO_ALUGADO") { throw new AppException("O livro solicitado já está alugado.", "409"); }
             }
             catch (SqlException sqlEx) { throw sqlEx; }
             finally { ConnectSQL.Close(); }

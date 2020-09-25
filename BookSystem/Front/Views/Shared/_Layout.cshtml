@@ -23,6 +23,7 @@
     <script src="@Url.Content("~/Content/js/enviroment.js")"></script>
     <script src="@Url.Content("~/Content/js/utils.js")"></script>
     <script src="@Url.Content("~/Content/js/requestXHR.js")"></script>
+    <script src="@Url.Content("~/Content/js/main.js")"></script>
 
 
 </head>
@@ -35,17 +36,16 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-            </ul>
-            <form class="form-inline my-1 my-lg-0">
-                <button id="LoginButton" type="button" class="btn btn-outline-light my-2 my-sm-0">Entrar</button>
-            </form>
         </div>
     </nav>
 
     <main role="main" class="container mt-3">
         @RenderBody()
     </main>
+
+    <footer class="mt-5">
+        <p>Desenvolvido por <b>Leonardo J. Valcarenghi</b></p>
+    </footer>
 
 
 
@@ -84,11 +84,7 @@
 
     @RenderSection("scripts", required: false)
 
-    <script type="text/javascript">
-        window.onload = (e) => {
-            if (GetCookie('Authentication') == null) { $('#LoginButton').show(); } else { $('#LoginButton').hide(); }
-        }
-    </script>
+
 
 </body>
 </html>

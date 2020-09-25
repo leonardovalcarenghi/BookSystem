@@ -78,7 +78,7 @@ lines {
 }
 
     lines.shine.h {
-        height: 40px ;
+        height: 40px;
         width: 100% !important;
     }
 
@@ -103,4 +103,19 @@ photo {
     100% {
         background-position: 1000px 0;
     }
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    animation: spinner .6s linear infinite;
+}
+
+
+footer p{
+    margin-left: 30px;
 }

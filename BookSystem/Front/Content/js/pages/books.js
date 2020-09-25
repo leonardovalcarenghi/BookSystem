@@ -1,4 +1,4 @@
-﻿
+﻿// Componente //
 var component =
     `<div class="row book-item" book-id="[ID]">
         <div class="col-md-1">
@@ -23,25 +23,36 @@ var component =
         </div>
     </div>`
 
+// Obter lista de livros //
 function GetList() {
-
+    $('#SearchButton').attr('disabled', 'disabled');
     let search = $('#SearchInput').val();
     Request('POST', '/books/get', search,
-        data => { RenderList(data); },
-        error => { alert('Erro ao buscar lista de livros. \n' + error); $('#SearchButton i').attr('class', 'fas fa-search'); }
+        data => {
+            RenderList(data);
+        },
+        error => {
+            // Não autenticado:
+            if (error.Code == '401') { sessionStorage['NotAuthenticated'] = 'true'; window.location.href = '/'; return; }
+
+            // Notificação:
+            $.toaster({ priority: 'danger', title: 'Falha ao buscar lista de livros.', message: error.Message });
+
+            // Botão de Buscar:
+            $('#SearchButton i').attr('class', 'fas fa-search');
+            $('#SearchButton').removeAttr('disabled');
+        }
     )
 }
 
+// Renderizar Lista //
 function RenderList(list = []) {
     $('#BooksList').html('');
     $('#SearchButton i').attr('class', 'fas fa-search');
+    $('#SearchButton').removeAttr('disabled');
 
     // Nenhum resultado encontrado:
-    if (list == null) {
-
-        $('#BooksList').html('<label>Nenhum resultado encontrado...</label>');
-
-    }
+    if (list == null) { $('#BooksList').html('<label>Nenhum resultado encontrado...</label>'); return; }
 
     list.forEach(BOOK => {
         let html = component;
@@ -54,7 +65,6 @@ function RenderList(list = []) {
         $('#BooksList').append(html);
     });
 
-
     // Visualizar Detalhes do Livro:
     $('.book-item .details').click(e => {
         var bookId = $(e.target).closest('.book-item').attr('book-id');
@@ -65,50 +75,55 @@ function RenderList(list = []) {
     $('.book-item .rent').click(e => {
         var bookId = $(e.target).closest('.book-item').attr('book-id');
         $('#ConfirmRentModal').modal('show');
-        $('#ConfirmRentModal .ok').unbind('click').click(f => {
-            RentBook(bookId);
-        })
+        $('#ConfirmRentModal .ok').unbind('click').click(f => { RentBook(bookId); })
     })
-
 
 }
 
-
+// Alugar Livro //
 function RentBook(id) {
+    // Bloquear botão:
     $('#ConfirmRentModal .ok').attr('disabled', 'disabled');
     $('#ConfirmRentModal .ok span').html('Alugando...')
 
     Request('POST', '/book/rent', id,
         data => {
-            alert('Livro alugado com sucesso!');
-            GetList();
+            // Notificação:
+            $.toaster({ priority: 'success', title: 'Livro Alugado', message: 'O livro foi alugado com êxito' });
+
+            // Fechar modal:
             $('#ConfirmRentModal').modal('hide');
+
+            // Atualizar lista:
+            GetList();
         },
         error => {
-            alert('Erro ao alugar livro: \n' + error);
+            // Não autenticado:
+            if (error.Code == '401') { sessionStorage['NotAuthenticated'] = 'true'; window.location.href = '/'; return; }
+
+            // Notificação:
+            if (error.Code == '409') { $.toaster({ priority: 'danger', title: 'Livro Indisponível', message: 'O livro solicitado já foi alugado.' }); }
+            $.toaster({ priority: 'danger', title: 'Falha ao alugar o livro', message: error.Message });
+
+            // Desbloquear Botão:
             $('#ConfirmRentModal .ok').removeAttr('disabled');
-            $('#ConfirmRentModal .ok span').html('Alugar')
+            $('#ConfirmRentModal .ok span').html('Alugar');
+
+            // Fechar modal:
+            $('#ConfirmRentModal').modal('hide');
         }
     )
 }
 
-
-
-
-
-
-
 $(function () {
 
     // Esperar um pouco para poder ver a animação de carregamento:
-    setTimeout(f => { GetList(); }, 1000)
+    setTimeout(f => { GetList(); }, 1000);
 
-
+    // Botão de Pesquisar:
     $('#SearchButton').click(f => {
-        $('#SearchButton i').attr('class', 'fas fa-spinner');
-
-
-        GetList();
-    })
+        $('#SearchButton i').attr('class', 'fas fa-spinner spinner');
+        setTimeout(f => { GetList(); }, 1000)
+    });
 
 })

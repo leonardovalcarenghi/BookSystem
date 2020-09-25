@@ -90,7 +90,7 @@ const SetCookie = function (key, value, durationCookie = null) {
 
 const DeleteCookie = function (key) {
     if (GetCookie(key) == null) { return 'Cookie não foi encontrado.' }
-    document.cookie = `${key}= ;expires= Thu, 01 Jan 1970 00:00:00 GMT`;
+    document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
     return true;
 }
 

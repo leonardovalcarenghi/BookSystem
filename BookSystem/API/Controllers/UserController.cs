@@ -21,7 +21,7 @@ namespace BookSystem.API.Controllers
                 string token = BookSystem.Business.User.Login(user.Email, user.Password);
                 return Request.CreateResponse(HttpStatusCode.OK, token);
             }
-            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }
+            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Response); }
             catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
         }
 
@@ -32,7 +32,7 @@ namespace BookSystem.API.Controllers
                 BookSystem.Business.Authentication.ValidateToken();
                 throw new NotImplementedException();
             }
-            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }
+            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Response); }
             catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
         }
 
@@ -43,7 +43,7 @@ namespace BookSystem.API.Controllers
                 BookSystem.Business.Authentication.ValidateToken();
                 throw new NotImplementedException();
             }
-            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }
+            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Response); }
             catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
         }
     }

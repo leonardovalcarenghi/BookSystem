@@ -40,7 +40,8 @@ namespace Front
 
             // jQuery:
             bundles.Add(new ScriptBundle("~/plugins/jquery/js").Include(
-              "~/plugins/jquery/js/jquery.min.js"
+              "~/plugins/jquery/js/jquery.min.js",
+              "~/plugins/jquery/js/toaster.js"
               ));
 
 

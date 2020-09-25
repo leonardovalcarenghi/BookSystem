@@ -22,7 +22,7 @@ namespace BookSystem.API.Controllers
                 BookDTO book = BookSystem.Business.Books.Get(id);
                 return Request.CreateResponse(HttpStatusCode.OK, book);
             }
-            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }
+            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Response); }
             catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
         }
 
@@ -37,7 +37,7 @@ namespace BookSystem.API.Controllers
                 List<BookDTO> listOfBooks = BookSystem.Business.Books.GetAll(search);
                 return Request.CreateResponse(HttpStatusCode.OK, listOfBooks);
             }
-            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }
+            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Response); }
             catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
         }
 
@@ -51,7 +51,7 @@ namespace BookSystem.API.Controllers
                 BookSystem.Business.Books.Rent(id);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }
+            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Response); }
             catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
         }
 
