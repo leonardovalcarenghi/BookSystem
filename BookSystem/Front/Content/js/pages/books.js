@@ -111,6 +111,11 @@ function RentBook(id) {
             // Fechar modal:
             $('#ConfirmRentModal').modal('hide');
 
+            // Desbloquear Botão:
+            $('#ConfirmRentModal .ok').removeAttr('disabled');
+            $('#ConfirmRentModal .ok span').html('Confirmar');
+            $('#ConfirmRentModal .ok i').attr('class', 'fas fa-shopping-cart mr-1');
+
             // Atualizar lista:
             GetList();
         },

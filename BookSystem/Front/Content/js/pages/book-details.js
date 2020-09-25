@@ -1,7 +1,10 @@
-﻿// Obter Informações do Livro //
+﻿// Livro carregado:
+var Book = {}
+
+// Obter Informações do Livro //
 function GetBook(id = 0) {
     Request('GET', '/book/get/' + id, null,
-        data => { ShowInformations(data); },
+        data => { Book = data; ShowInformations(data); },
         error => {
             // Não autenticado:
             if (error.Code == '401') { sessionStorage['NotAuthenticated'] = 'true'; window.location.href = '/'; return; }
@@ -49,6 +52,12 @@ function RentBook(id) {
             // Fechar modal:
             $('#ConfirmRentModal').modal('hide');
 
+
+            // Desbloquear Botão:
+            $('#ConfirmRentModal .ok').removeAttr('disabled');
+            $('#ConfirmRentModal .ok span').html('Confirmar');
+            $('#ConfirmRentModal .ok i').attr('class', 'fas fa-shopping-cart mr-1');
+
             // Atualizar livro:
             GetBook(id);
         },
@@ -60,11 +69,11 @@ function RentBook(id) {
             if (error.Code == '409') { $.toaster({ priority: 'danger', title: 'Livro Indisponível', message: 'O livro solicitado já foi alugado.' }); } else {
                 $.toaster({ priority: 'danger', title: 'Falha ao alugar o livro', message: error.Message });
             }
-           
 
             // Desbloquear Botão:
             $('#ConfirmRentModal .ok').removeAttr('disabled');
-            $('#ConfirmRentModal .ok span').html('Alugar');
+            $('#ConfirmRentModal .ok span').html('Confirmar');
+            $('#ConfirmRentModal .ok i').attr('class', 'fas fa-shopping-cart mr-1');
 
             // Fechar modal:
             $('#ConfirmRentModal').modal('hide');
@@ -84,9 +93,14 @@ $(function () {
 
     $('#BackButton').click(f => { window.location.href = '/books/'; });
     $('#RentButton').click(f => {
+
+        // Montar informações do livro na modal:
+        $('#ConfirmRentModal img').attr('src', Book.ImageURL);
+        $('#ConfirmRentModal p[name="BookName"]').html(Book.Name);
+        $('#ConfirmRentModal p[name="BookAuthor"]').html(Book.Author);
+        $('#ConfirmRentModal p[name="BookYear"]').html(Book.Year);
+
         $('#ConfirmRentModal').modal('show');
-        $('#ConfirmRentModal .ok').unbind('click').click(f => {
-            RentBook(id);
-        })
+        $('#ConfirmRentModal .ok').unbind('click').click(f => { RentBook(id); })
     });
 })
