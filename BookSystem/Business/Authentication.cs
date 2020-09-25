@@ -29,6 +29,9 @@ namespace BookSystem.Business
 
                 // Buscar usuário vinculado ao token:
                 UserDTO user = User.GetByToken(authenticationToken);
+                User.Id = user.Id;
+                User.Name = user.Name;
+                User.Email = user.Email
 
             }
             catch (AppException AppEx) { throw AppEx; }

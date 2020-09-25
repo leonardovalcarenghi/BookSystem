@@ -70,11 +70,20 @@ namespace BookSystem.DataBase.Querys {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID WHERE B.BookID = @BookID.
         /// </summary>
         internal static string GetById {
             get {
                 return ResourceManager.GetString("GetById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Rent {
+            get {
+                return ResourceManager.GetString("Rent", resourceCulture);
             }
         }
     }

@@ -63,6 +63,10 @@
     <Compile Include="_DataBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BookSystemException\BookSystemException.csproj">
+      <Project>{6D0C518D-D128-4E52-8C56-E37D1AF88F66}</Project>
+      <Name>BookSystemException</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DTO\DTO.csproj">
       <Project>{5d50e998-fe48-4a30-a2f2-fd06f9b1e6cb}</Project>
       <Name>DTO</Name>
@@ -102,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Tokens\Get.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Books\Rent.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,6 +15,22 @@ namespace BookSystem.Business
     {
 
         /// <summary>
+        /// Id do usuário (Depois de autenticado)
+        /// </summary>
+        public static int Id { get; set; }
+
+        /// <summary>
+        /// Nome do usuário (Depois de autenticado)
+        /// </summary>
+        public static string Name { get; set; }
+
+        /// <summary>
+        /// Email do usuário (Depois de autenticado)
+        /// </summary>
+
+        public static string Email { get; set; }
+
+        /// <summary>
         /// Login
         /// </summary>
         public static string Login(string email, string password)

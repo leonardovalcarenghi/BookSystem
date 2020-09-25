@@ -29,6 +29,7 @@ namespace BookSystem.API.Controllers
         {
             try
             {
+                BookSystem.Business.Authentication.ValidateToken();
                 throw new NotImplementedException();
             }
             catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }
@@ -39,6 +40,7 @@ namespace BookSystem.API.Controllers
         {
             try
             {
+                BookSystem.Business.Authentication.ValidateToken();
                 throw new NotImplementedException();
             }
             catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }

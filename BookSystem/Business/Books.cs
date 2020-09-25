@@ -31,11 +31,12 @@ namespace BookSystem.Business
         /// <param name="id"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static void Rent(int id, int userId)
+        public static void Rent(int id)
         {
             try
             {
-                throw new NotImplementedException();
+                if (id == 0) { throw new AppException("Identificador do livro não foi recebido."); }
+                DataBase.Books.Rent(id, User.Id);
             }
             catch (AppException AppEx) { throw AppEx; }
             catch (Exception Ex) { throw Ex; }

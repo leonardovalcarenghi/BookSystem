@@ -1,4 +1,5 @@
 ﻿using BookSystem.DTO;
+using BookSystemException;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -75,7 +76,7 @@ namespace BookSystem.DataBase
                     book.Year = readDataBase["Year"].ToString();
 
                     var obj = readDataBase["Status"].ToString();
-                    book.Available = (obj == "" ?  true: false);
+                    book.Available = (obj == "" ? true : false);
 
                     listOfBooks.Add(book);
                 }
@@ -84,6 +85,27 @@ namespace BookSystem.DataBase
             catch (SqlException sqlEx) { throw sqlEx; }
             finally { ConnectSQL.Close(); }
         }
+
+        public static void Rent(int id, int userId)
+        {
+            SqlConnection ConnectSQL = new SqlConnection(_DataBase.ConnectionString);
+            string SQL = Querys.Books.Rent;
+
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand(SQL, ConnectSQL);
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                ConnectSQL.Open();
+                sqlCommand.Parameters.Add(new SqlParameter("@BookID", id));
+                sqlCommand.Parameters.Add(new SqlParameter("@UserID", userId));
+
+                object response = sqlCommand.ExecuteScalar();
+                if (response.ToString() == "LIVRO_ALUGADO") { throw new AppException("O livro solicitado já está alugado."); }
+            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            finally { ConnectSQL.Close(); }
+        }
+
 
     }
 }

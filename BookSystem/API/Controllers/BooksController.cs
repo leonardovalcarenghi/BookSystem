@@ -18,6 +18,7 @@ namespace BookSystem.API.Controllers
         {
             try
             {
+                BookSystem.Business.Authentication.ValidateToken();
                 BookDTO book = BookSystem.Business.Books.Get(id);
                 return Request.CreateResponse(HttpStatusCode.OK, book);
             }
@@ -32,8 +33,23 @@ namespace BookSystem.API.Controllers
         {
             try
             {
+                BookSystem.Business.Authentication.ValidateToken();
                 List<BookDTO> listOfBooks = BookSystem.Business.Books.GetAll();
                 return Request.CreateResponse(HttpStatusCode.OK, listOfBooks);
+            }
+            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }
+            catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
+        }
+
+        [HttpPost]
+        [Route("book/rent")]
+        public HttpResponseMessage Rent([FromBody] int id)
+        {
+            try
+            {
+                BookSystem.Business.Authentication.ValidateToken();
+                BookSystem.Business.Books.Rent(id);
+                return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }
             catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
