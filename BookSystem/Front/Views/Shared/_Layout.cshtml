@@ -51,8 +51,8 @@
 
 
     <!-- Modal: Confirmar Locação -->
-    <div class="modal fade" id="ConfirmRentModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade bd-example-modal-lg" id="ConfirmRentModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Alugar livro</h5>
@@ -61,15 +61,51 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Confirma aluguel do livro?</p>
+
+
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <img src="" style="width: 100%;" />
+                            </div>
+
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Livro</label>
+                                        <p name="BookName"></p>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label>Escritor</label>
+                                        <p name="BookAuthor"></p>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label>Ano</label>
+                                        <p name="BookYear"></p>
+                                    </div>
+
+                                    <div class="col-md-12">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
                 </div>
                 <div class="modal-footer">
-
-                    <button type="button" class="btn btn-primary btn-block ok">
+                    <p style="position: absolute; left: 30px;"><b>Confirma aluguel do livro?</b></p>
+                    <button type="button" class="btn btn-primary ok">
                         <i class="fas fa-shopping-cart mr-1"></i>
-                        <span>Continuar</span>
+                        <span>Confirmar</span>
                     </button>
-                    <button type="button" class="btn btn-outline-default btn-block" data-dismiss="modal">
+                    <button type="button" class="btn btn-outline-default" data-dismiss="modal">
                         <i class="fas fa-times mr-1"></i>
                         <span>Cancelar</span>
                     </button>

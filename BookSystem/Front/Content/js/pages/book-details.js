@@ -1,11 +1,18 @@
-﻿function GetBook(id = 0) {
+﻿// Obter Informações do Livro //
+function GetBook(id = 0) {
     Request('GET', '/book/get/' + id, null,
         data => { ShowInformations(data); },
-        error => { alert('Erro ao buscar dados do livro \n' + error); }
+        error => {
+            // Não autenticado:
+            if (error.Code == '401') { sessionStorage['NotAuthenticated'] = 'true'; window.location.href = '/'; return; }
+
+            // Notificação:
+            $.toaster({ priority: 'danger', title: 'Falha ao buscar informações do livro', message: error.Message });
+        }
     )
 }
 
-
+// Exibir Informações do Livro //
 function ShowInformations(book = {}) {
 
     $('#DescriptionSection label').html('Descrição');
@@ -25,32 +32,46 @@ function ShowInformations(book = {}) {
         $('#RentButton').attr('disabled', 'disabled');
         $('#RentButton span').html('Indisponível');
     }
-
     $('#OptionsSection').show();
-
-
-
-
 }
 
-
+// Alugar Livro //
 function RentBook(id) {
+    // Bloquear botão:
     $('#ConfirmRentModal .ok').attr('disabled', 'disabled');
     $('#ConfirmRentModal .ok span').html('Alugando...')
 
     Request('POST', '/book/rent', id,
         data => {
-            alert('Livro alugado com sucesso!');
-            GetBook(id);
+            // Notificação:
+            $.toaster({ priority: 'success', title: 'Livro Alugado', message: 'O livro foi alugado com êxito' });
+
+            // Fechar modal:
             $('#ConfirmRentModal').modal('hide');
+
+            // Atualizar livro:
+            GetBook(id);
         },
         error => {
-            alert('Erro ao alugar livro: \n' + error);
+            // Não autenticado:
+            if (error.Code == '401') { sessionStorage['NotAuthenticated'] = 'true'; window.location.href = '/'; return; }
+
+            // Notificação:
+            if (error.Code == '409') { $.toaster({ priority: 'danger', title: 'Livro Indisponível', message: 'O livro solicitado já foi alugado.' }); } else {
+                $.toaster({ priority: 'danger', title: 'Falha ao alugar o livro', message: error.Message });
+            }
+           
+
+            // Desbloquear Botão:
             $('#ConfirmRentModal .ok').removeAttr('disabled');
-            $('#ConfirmRentModal .ok span').html('Alugar')
+            $('#ConfirmRentModal .ok span').html('Alugar');
+
+            // Fechar modal:
+            $('#ConfirmRentModal').modal('hide');
         }
     )
 }
+
 
 
 $(function () {

@@ -23,6 +23,9 @@ var component =
         </div>
     </div>`
 
+// Lista de livro:
+var ListOfBooks = []
+
 // Obter lista de livros //
 function GetList() {
     $('#SearchButton').attr('disabled', 'disabled');
@@ -54,6 +57,8 @@ function RenderList(list = []) {
     // Nenhum resultado encontrado:
     if (list == null) { $('#BooksList').html('<label>Nenhum resultado encontrado...</label>'); return; }
 
+    ListOfBooks = list;
+
     list.forEach(BOOK => {
         let html = component;
         html = html.replace('[ID]', BOOK.Id);
@@ -74,6 +79,17 @@ function RenderList(list = []) {
     // Alugar Livro:
     $('.book-item .rent').click(e => {
         var bookId = $(e.target).closest('.book-item').attr('book-id');
+
+        var book = ListOfBooks.find(x => x.Id = bookId);
+        console.log('book', book);
+
+        // Montar informações do livro na modal:
+        $('#ConfirmRentModal img').attr('src', book.ImageURL);
+        $('#ConfirmRentModal p[name="BookName"]').html(book.Name);
+        $('#ConfirmRentModal p[name="BookAuthor"]').html(book.Author);
+        $('#ConfirmRentModal p[name="BookYear"]').html(book.Year);
+
+
         $('#ConfirmRentModal').modal('show');
         $('#ConfirmRentModal .ok').unbind('click').click(f => { RentBook(bookId); })
     })
@@ -84,7 +100,8 @@ function RenderList(list = []) {
 function RentBook(id) {
     // Bloquear botão:
     $('#ConfirmRentModal .ok').attr('disabled', 'disabled');
-    $('#ConfirmRentModal .ok span').html('Alugando...')
+    $('#ConfirmRentModal .ok span').html('Alugando...');
+    $('#ConfirmRentModal .ok i').attr('class', 'fas fa-spinner spinner');
 
     Request('POST', '/book/rent', id,
         data => {
@@ -102,12 +119,15 @@ function RentBook(id) {
             if (error.Code == '401') { sessionStorage['NotAuthenticated'] = 'true'; window.location.href = '/'; return; }
 
             // Notificação:
-            if (error.Code == '409') { $.toaster({ priority: 'danger', title: 'Livro Indisponível', message: 'O livro solicitado já foi alugado.' }); }
-            $.toaster({ priority: 'danger', title: 'Falha ao alugar o livro', message: error.Message });
+            if (error.Code == '409') { $.toaster({ priority: 'danger', title: 'Livro Indisponível', message: 'O livro solicitado já foi alugado.' }); } else {
+                $.toaster({ priority: 'danger', title: 'Falha ao alugar o livro', message: error.Message });
+            }
+
 
             // Desbloquear Botão:
             $('#ConfirmRentModal .ok').removeAttr('disabled');
-            $('#ConfirmRentModal .ok span').html('Alugar');
+            $('#ConfirmRentModal .ok span').html('Confirmar');
+            $('#ConfirmRentModal .ok i').attr('class', 'fas fa-shopping-cart mr-1');
 
             // Fechar modal:
             $('#ConfirmRentModal').modal('hide');
