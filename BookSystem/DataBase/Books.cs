@@ -48,17 +48,19 @@ namespace BookSystem.DataBase
         }
 
 
-        public static List<BookDTO> GetAll()
+        public static List<BookDTO> GetAll(string search = "")
         {
             List<BookDTO> listOfBooks = null;
             SqlConnection ConnectSQL = new SqlConnection(_DataBase.ConnectionString);
             string SQL = "SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID";
+            if (!string.IsNullOrEmpty(search)) { SQL = "SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID WHERE B.Name LIKE '%' + @Search +'%'"; }
 
             try
             {
                 SqlCommand sqlCommand = new SqlCommand(SQL, ConnectSQL);
                 sqlCommand.CommandType = System.Data.CommandType.Text;
                 ConnectSQL.Open();
+                if (!string.IsNullOrEmpty(search)) { sqlCommand.Parameters.Add(new SqlParameter("@Search", search)); }
 
                 SqlDataReader readDataBase = sqlCommand.ExecuteReader();
                 while (readDataBase.Read())

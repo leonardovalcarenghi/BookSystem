@@ -24,14 +24,24 @@ var component =
     </div>`
 
 function GetList() {
-    Request('GET', '/books/get', null,
+
+    let search = $('#SearchInput').val();
+    Request('POST', '/books/get', search,
         data => { RenderList(data); },
-        error => { alert('Erro ao buscar lista de livros. \n' + error); }
+        error => { alert('Erro ao buscar lista de livros. \n' + error); $('#SearchButton i').attr('class', 'fas fa-search'); }
     )
 }
 
 function RenderList(list = []) {
     $('#BooksList').html('');
+    $('#SearchButton i').attr('class', 'fas fa-search');
+
+    // Nenhum resultado encontrado:
+    if (list == null) {
+
+        $('#BooksList').html('<label>Nenhum resultado encontrado...</label>');
+
+    }
 
     list.forEach(BOOK => {
         let html = component;
@@ -92,5 +102,13 @@ $(function () {
 
     // Esperar um pouco para poder ver a animação de carregamento:
     setTimeout(f => { GetList(); }, 1000)
+
+
+    $('#SearchButton').click(f => {
+        $('#SearchButton i').attr('class', 'fas fa-spinner');
+
+
+        GetList();
+    })
 
 })

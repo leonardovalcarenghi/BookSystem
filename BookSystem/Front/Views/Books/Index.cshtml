@@ -9,8 +9,23 @@
     <script src="@Url.Content("~/Content/js/pages/books.js")"></script>
 }
 
+<div class="row">
 
-<h2>Livros</h2>
+    <div class="col-md-9">
+        <h2>Livros</h2>
+    </div>
+
+    <div class="col-md-3">
+        <div class="btn-group">
+            <input type="text" class="form-control" placeholder="Buscar livros" id="SearchInput" />
+            <button type="button" class="btn btn-warning" id="SearchButton"><i class="fas fa-search" style="color: white;"></i></button>
+        </div>
+
+    </div>
+
+</div>
+
+
 
 <div class="mt-5 mb-5" id="BooksList">
 

@@ -27,14 +27,14 @@ namespace BookSystem.API.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("books/get")]
-        public HttpResponseMessage GetAll()
+        public HttpResponseMessage GetAll([FromBody]string search)
         {
             try
             {
                 BookSystem.Business.Authentication.ValidateToken();
-                List<BookDTO> listOfBooks = BookSystem.Business.Books.GetAll();
+                List<BookDTO> listOfBooks = BookSystem.Business.Books.GetAll(search);
                 return Request.CreateResponse(HttpStatusCode.OK, listOfBooks);
             }
             catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Message); }

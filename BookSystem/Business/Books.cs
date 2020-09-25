@@ -46,11 +46,11 @@ namespace BookSystem.Business
         /// <summary>
         /// Buscar lista de todos os livros disponíveis.
         /// </summary>
-        public static List<BookDTO> GetAll()
+        public static List<BookDTO> GetAll( string search = "")
         {
             try
             {
-                List<BookDTO> listOfBooks = BookSystem.DataBase.Books.GetAll();
+                List<BookDTO> listOfBooks = BookSystem.DataBase.Books.GetAll(search);
                 return listOfBooks;
             }
             catch (AppException AppEx) { throw AppEx; }
