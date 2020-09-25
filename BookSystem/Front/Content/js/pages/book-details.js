@@ -33,6 +33,26 @@ function ShowInformations(book = {}) {
 
 }
 
+
+function RentBook(id) {
+    $('#ConfirmRentModal .ok').attr('disabled', 'disabled');
+    $('#ConfirmRentModal .ok span').html('Alugando...')
+
+    Request('POST', '/book/rent', id,
+        data => {
+            alert('Livro alugado com sucesso!');
+            GetBook(id);
+            $('#ConfirmRentModal').modal('hide');
+        },
+        error => {
+            alert('Erro ao alugar livro: \n' + error);
+            $('#ConfirmRentModal .ok').removeAttr('disabled');
+            $('#ConfirmRentModal .ok span').html('Alugar')
+        }
+    )
+}
+
+
 $(function () {
     let id = ParameterURL('id');
     if (id == null) { window.location.href = '/books/'; }
@@ -44,5 +64,8 @@ $(function () {
     $('#BackButton').click(f => { window.location.href = '/books/'; });
     $('#RentButton').click(f => {
         $('#ConfirmRentModal').modal('show');
+        $('#ConfirmRentModal .ok').unbind('click').click(f => {
+            RentBook(id);
+        })
     });
 })

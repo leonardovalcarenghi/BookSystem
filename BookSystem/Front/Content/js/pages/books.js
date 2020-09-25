@@ -72,6 +72,7 @@ function RentBook(id) {
         data => {
             alert('Livro alugado com sucesso!');
             GetList();
+            $('#ConfirmRentModal').modal('hide');
         },
         error => {
             alert('Erro ao alugar livro: \n' + error);
