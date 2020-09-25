@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookSystem - Apresentação</title>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <style>
+        img {
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+        }
+    </style>
+
+    <div class="container mt-5">
+
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <h3>Bem-vindo(a) ao manual de apresentação do BookSystem!</h3>
+                <p>Desenvolvido por Leonardo J. Valcarenghi</p>
+                <hr class="mt-5">
+            </div>
+        </div>
+
+
+        <!-- Tela de Inicio -->
+        <div class="row mt-5">
+
+            <div class="col-md-7">
+                <img src="assets/img/login.png" width="100%">
+            </div>
+
+            <div class="col-md-5">
+                <h3>Tela de Início</h3>
+                <p>Para acessar o sistema, você pode usar qualquer um dos e-mails abaixo:</p>
+                <ul>
+                    <li>leonardo.valcarenghi@gmail.com</li>
+                    <li>fulaninho01@email.com</li>
+                    <li>fulaninho02@email.com</li>
+                    <li>fulaninho03@email.com</li>
+                </ul>
+                <p>
+                    A senha de todos os usuários é <b>123456789</b>
+                </p>
+                <small>As senhas no banco estão como <b>hash</b>.</small>
+            </div>
+            <div class="col-md-12">
+                <hr class="mt-5">
+            </div>
+
+        </div>
+
+        <!-- Página de Livros -->
+        <div class="row mt-5">
+
+            <div class="col-md-5">
+                <h3>Página de Livros</h3>
+                <p>Quando você realizar o login, será redirecionado para a página de <b>Livros</b>, onde a aplicação vai
+                    buscar os livros cadastrados.</p>
+                <p>Nessa tela você pode:</p>
+                <ul>
+                    <li>Procurar um livro</li>
+                    <li>Alugar livros</li>
+                    <li>Consultar detalhes do livro</li>
+                </ul>
+
+                <small>Todas as informações foram coletadas do site da <b>Saraiva</b></small>.
+            </div>
+
+            <div class="col-md-7">
+                <img class="float-right" src="assets/img/books-loading.png" width="100%">
+            </div>
+
+            <div class="col-md-7 offset-5">
+                <img class="float-right mt-3" src="assets/img/books.png" width="100%">
+            </div>
+            <div class="col-md-12">
+                <hr class="mt-5">
+            </div>
+
+        </div>
+
+
+        <!-- Página de Detalhes -->
+        <div class="row mt-5">
+
+            <div class="col-md-7">
+                <img class="float-right" src="assets/img/book-details.png" width="100%">
+            </div>
+
+            <div class="col-md-5">
+                <h3>Detalhes do Livro</h3>
+                <p>
+                    Ao clicar no botão de <b>Detalhes</b> você será redirecionado à outra tela, para consultar mais
+                    informações sobre o livro desejado.
+                </p>
+                <p>
+                    Nessa mesma tela, você pode <b>alugar o livro</b> ou <b>voltar</b> para a página anterior.
+                </p>
+            </div>
+
+            <div class="col-md-12">
+                <hr class="mt-5">
+            </div>
+
+        </div>
+
+
+        <!-- Alugando um Livro -->
+        <div class="row mt-5">
+
+
+            <div class="col-md-5">
+                <h3>Alugando um Livro</h3>
+                <p>
+                    Para alugar um livro é muito fácil, basta clicar em <b>Alugar</b> e na modal que surgir, clique em
+                    <b>Confirmar</b>.
+                </p>
+                <p>
+                    Após isso, seu livro vai aparecer aos outros usuários como <b>Indisponível</b> e para você, vai
+                    disponibilizar a função <b>Devolver</b>.
+                </p>
+            </div>
+
+            <div class="col-md-7">
+                <img class="float-right" src="assets/img/rent.png" width="100%">
+            </div>
+
+            <div class="col-md-7 mt-3">
+                <img class="float-right" src="assets/img/rented-book.png" width="100%">
+            </div>
+
+            <div class="col-md-5 mt-3">
+                <p class="mt-5">
+                    Essa é a sua visualização.
+                </p>
+            </div>
+
+
+            <div class="col-md-5 mt-3">
+                <p class="mt-5" style="text-align: right;">
+                    Essa é a visualização para os outros usuários.
+                </p>
+            </div>
+
+            <div class="col-md-7 mt-3">
+                <img class="float-right" src="assets/img/rented-book-o.png" width="100%">
+            </div>
+
+
+            <div class="col-md-12">
+                <hr class="mt-5">
+            </div>
+
+        </div>
+
+
+        <!-- Procurar um Livro -->
+        <div class="row mt-5">
+
+            <div class="col-md-7">
+                <img class="float-right" src="assets/img/search.png" width="100%">
+            </div>
+
+            <div class="col-md-5">
+                <h3>Procurar um livro</h3>
+                <p>
+                    Para procurar um livro específico, basta escrever o nome (ou parte do nome) e clicar na
+                    <b>lupa</b>.
+                </p>
+                <p>
+                    O sistema vai consultar no banco de dados e trazer os resultados de acordo com a busca.
+                </p>
+            </div>
+
+            <div class="col-md-5 mt-3">
+                <p class="mt-5" style="text-align: right;">
+                    Caso nenhum resultado seja encontrado, você vai receber essa mensagem:
+                </p>
+            </div>
+
+            <div class="col-md-7 mt-3">
+                <img class="float-right" src="assets/img/not-found.png" width="100%">
+            </div>
+
+            <div class="col-md-12">
+                <hr class="mt-5">
+            </div>
+
+        </div>
+
+
+        <div class="row mt-5 mb-5">
+            <div class="col-md-7">
+                <small>BookSystem - Leonardo José Valcarenghi | Setembro de 2020 </small>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>
