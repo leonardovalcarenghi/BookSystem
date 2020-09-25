@@ -61,7 +61,12 @@ namespace BookSystem.DataBase.Querys {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a 
+        ///-- Buscar todos os livros (sem filtro):
+        ///	IF @Search IS NULL	BEGIN	SELECT B.*, R.Status, R.UserID AS [RentedBy] FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID	END
+        ///	ELSE
+        ///-- Buscar livros com filtro:
+        ///	BEGIN SELECT B.*, R.Status, R.UserID AS [RentedBy] FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID WHERE B.Name LIKE &apos;%&apos; + @Search +&apos;%&apos; END.
         /// </summary>
         internal static string GetAll {
             get {
@@ -70,7 +75,8 @@ namespace BookSystem.DataBase.Querys {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID WHERE B.BookID = @BookID.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a -- Buscar informações do livro solicitado:
+        ///SELECT B.*, R.Status, R.UserID AS [RentedBy] FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID WHERE B.BookID = @BookID.
         /// </summary>
         internal static string GetById {
             get {
@@ -79,7 +85,25 @@ namespace BookSystem.DataBase.Querys {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a 	
+        ///	-- Devolver o livro:
+        ///	UPDATE RentedBooks SET Status = 0 WHERE BookID = @BookID AND UserID = @UserID.
+        /// </summary>
+        internal static string GiveBack {
+            get {
+                return ResourceManager.GetString("GiveBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a -- Verificar se livro está alugado:
+        ///DECLARE @Contador INT
+        ///SELECT @Contador = COUNT(Id) FROM RentedBooks WHERE Status = 1 AND BookID = @BookID
+        ///IF (@Contador = 1)	BEGIN SELECT &apos;LIVRO_ALUGADO&apos; RETURN END
+        ///
+        ///-- Livro disponível:
+        ///INSERT INTO RentedBooks (BookID, UserID, Status) VALUES (@BookID, @UserID, 1)
+        ///.
         /// </summary>
         internal static string Rent {
             get {

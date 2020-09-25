@@ -110,5 +110,8 @@
   <ItemGroup>
     <None Include="Resources\Books\Rent.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Books\GiveBack.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

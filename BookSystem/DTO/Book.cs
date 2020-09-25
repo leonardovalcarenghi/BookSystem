@@ -58,7 +58,15 @@ namespace BookSystem.DTO
         /// </summary>
         public bool Available { get; set; }
 
+        /// <summary>
+        /// Identificador do usuário que alugou o livro (caso indisponível)
+        /// </summary>
+        public int? RentedBy { get; set; }
 
+        /// <summary>
+        /// O livro foi alugado pelo usuário atual?
+        /// </summary>
+        public bool? RentedByMe { get; set; }
 
 
 

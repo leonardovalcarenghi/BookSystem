@@ -19,6 +19,8 @@ namespace BookSystem.Business
             try
             {
                 BookDTO book = BookSystem.DataBase.Books.Get(id);
+                if (book == null) { throw new AppException("Livro não encontrado."); }
+                if (!book.Available) { book.RentedByMe = book.RentedBy == User.Id; }
                 return book;
             }
             catch (AppException AppEx) { throw AppEx; }
@@ -44,13 +46,31 @@ namespace BookSystem.Business
 
 
         /// <summary>
+        /// Devolver Livro
+        /// </summary>
+        /// <param name="id"></param>
+        public static void GiveBack(int id)
+        {
+            try
+            {
+                if (id == 0) { throw new AppException("Identificador do livro não foi recebido."); }
+                DataBase.Books.GiveBack(id, User.Id);
+            }
+            catch (AppException AppEx) { throw AppEx; }
+            catch (Exception Ex) { throw Ex; }
+        }
+
+
+
+        /// <summary>
         /// Buscar lista de todos os livros disponíveis.
         /// </summary>
-        public static List<BookDTO> GetAll( string search = "")
+        public static List<BookDTO> GetAll(string search = "")
         {
             try
             {
                 List<BookDTO> listOfBooks = BookSystem.DataBase.Books.GetAll(search);
+                listOfBooks.ForEach(book => { if (!book.Available) { book.RentedByMe = book.RentedBy == User.Id; } });
                 return listOfBooks;
             }
             catch (AppException AppEx) { throw AppEx; }

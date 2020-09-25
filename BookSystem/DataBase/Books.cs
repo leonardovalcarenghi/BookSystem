@@ -39,7 +39,10 @@ namespace BookSystem.DataBase
                     book.Year = readDataBase["Year"].ToString();
 
                     var obj = readDataBase["Status"].ToString();
-                    book.Available = (obj == "" ? true : false);
+                    book.Available = (obj == "" || obj == "False" ? true : false);
+
+                    book.RentedBy = readDataBase["RentedBy"].ToString() != "" ? Convert.ToInt32(readDataBase["RentedBy"].ToString()) : 0;
+
                 }
                 return book;
             }
@@ -52,15 +55,14 @@ namespace BookSystem.DataBase
         {
             List<BookDTO> listOfBooks = null;
             SqlConnection ConnectSQL = new SqlConnection(_DataBase.ConnectionString);
-            string SQL = "SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID";
-            if (!string.IsNullOrEmpty(search)) { SQL = "SELECT * FROM Books AS B LEFT Join RentedBooks AS R ON B.BookID = R.BookID WHERE B.Name LIKE '%' + @Search +'%'"; }
+            string SQL = Querys.Books.GetAll;
 
             try
             {
                 SqlCommand sqlCommand = new SqlCommand(SQL, ConnectSQL);
                 sqlCommand.CommandType = System.Data.CommandType.Text;
                 ConnectSQL.Open();
-                if (!string.IsNullOrEmpty(search)) { sqlCommand.Parameters.Add(new SqlParameter("@Search", search)); }
+                sqlCommand.Parameters.Add(new SqlParameter("@Search", string.IsNullOrEmpty(search) ? (object)DBNull.Value : search));
 
                 SqlDataReader readDataBase = sqlCommand.ExecuteReader();
                 while (readDataBase.Read())
@@ -78,7 +80,9 @@ namespace BookSystem.DataBase
                     book.Year = readDataBase["Year"].ToString();
 
                     var obj = readDataBase["Status"].ToString();
-                    book.Available = (obj == "" ? true : false);
+                    book.Available = (obj == "" || obj == "False" ? true : false);                   
+
+                    book.RentedBy = readDataBase["RentedBy"].ToString() != "" ? Convert.ToInt32(readDataBase["RentedBy"].ToString()) : 0;
 
                     listOfBooks.Add(book);
                 }
@@ -109,6 +113,22 @@ namespace BookSystem.DataBase
             finally { ConnectSQL.Close(); }
         }
 
+        public static void GiveBack(int id, int userId)
+        {
+            SqlConnection ConnectSQL = new SqlConnection(_DataBase.ConnectionString);
+            string SQL = Querys.Books.GiveBack;
 
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand(SQL, ConnectSQL);
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                ConnectSQL.Open();
+                sqlCommand.Parameters.Add(new SqlParameter("@BookID", id));
+                sqlCommand.Parameters.Add(new SqlParameter("@UserID", userId));
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            finally { ConnectSQL.Close(); }
+        }
     }
 }

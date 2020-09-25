@@ -14,8 +14,8 @@ var component =
                 </div>
                 <div class="col-md-4 mt-2">
                     <button type="button" class="btn btn-outline-info float-right details">Detalhes</button>
-                    <button type="button" class="btn btn-primary float-right mr-2 px-3 rent" [AVAILABLE]>
-                        <i class="fas fa-shopping-cart mr-1"></i>
+                    <button type="button" class="btn [CLASS] float-right mr-2 px-3 rent" [AVAILABLE]>
+                        <i class="[ICON] mr-1"></i>
                         <span>[TEXTO]</span>
                     </button>
                 </div>
@@ -35,9 +35,6 @@ function GetList() {
             RenderList(data);
         },
         error => {
-            // Não autenticado:
-            if (error.Code == '401') { sessionStorage['NotAuthenticated'] = 'true'; window.location.href = '/'; return; }
-
             // Notificação:
             $.toaster({ priority: 'danger', title: 'Falha ao buscar lista de livros.', message: error.Message });
 
@@ -65,8 +62,20 @@ function RenderList(list = []) {
         html = html.replace('[IMAGEM]', BOOK.ImageURL);
         html = html.replace('[AUTOR]', BOOK.Author);
         html = html.replace('[LIVRO]', BOOK.Name);
+
+
+        // Verificar se o usuário atual alugou o livro:
+        if (!BOOK.Available && BOOK.RentedByMe) {
+            html = html.replace('[AVAILABLE]', '');
+            html = html.replace('[TEXTO]', 'Devolver');
+            html = html.replace('[ICON]', 'fas fa-share');
+        }
+
         html = html.replace('[AVAILABLE]', (BOOK.Available == false ? 'disabled="disabled"' : ''));
         html = html.replace('[TEXTO]', (BOOK.Available == false ? 'Indisponível' : 'Alugar'));
+        html = html.replace('[CLASS]', (BOOK.RentedByMe == false || BOOK.RentedByMe == null ? 'btn-primary' : 'btn-success'));
+        html = html.replace('[ICON]', 'fas fa-shopping-cart');
+
         $('#BooksList').append(html);
     });
 
@@ -80,8 +89,11 @@ function RenderList(list = []) {
     $('.book-item .rent').click(e => {
         var bookId = $(e.target).closest('.book-item').attr('book-id');
 
-        var book = ListOfBooks.find(x => x.Id = bookId);
-        console.log('book', book);
+        var book = ListOfBooks.find(x => x.Id == bookId);
+
+        // Devolver:
+        if (!book.Available) { GiveBack(bookId); return; }
+
 
         // Montar informações do livro na modal:
         $('#ConfirmRentModal img').attr('src', book.ImageURL);
@@ -120,14 +132,10 @@ function RentBook(id) {
             GetList();
         },
         error => {
-            // Não autenticado:
-            if (error.Code == '401') { sessionStorage['NotAuthenticated'] = 'true'; window.location.href = '/'; return; }
-
             // Notificação:
             if (error.Code == '409') { $.toaster({ priority: 'danger', title: 'Livro Indisponível', message: 'O livro solicitado já foi alugado.' }); } else {
                 $.toaster({ priority: 'danger', title: 'Falha ao alugar o livro', message: error.Message });
             }
-
 
             // Desbloquear Botão:
             $('#ConfirmRentModal .ok').removeAttr('disabled');
@@ -138,6 +146,34 @@ function RentBook(id) {
             $('#ConfirmRentModal').modal('hide');
         }
     )
+}
+
+// Devolver Livro //
+function GiveBack(id) {
+    var rowBook = $(`.book-item[book-id=${id}]`);
+    rowBook.find('.rent').attr('disabled', 'disabled');
+    rowBook.find('.rent i').attr('class', 'fas fa-spinner spinner');
+    rowBook.find('.rent span').html('Devolvendo...');
+
+    Request('POST', '/book/giveback', id,
+        data => {
+            // Notificação:
+            $.toaster({ priority: 'success', title: 'Livro Devolvido', message: 'O livro foi devolvido com êxito.' });
+
+            // Atualizar lista:
+            GetList();
+        },
+        error => {
+            // Notificação:
+            $.toaster({ priority: 'danger', title: 'Falha ao devolver o livro', message: error.Message });
+
+            // Desbloquear Botão:
+            rowBook.find('.rent').removeAttr('disabled');
+            rowBook.find('.rent i').attr('class', 'fas fa-share mr-1');
+            rowBook.find('.rent span').html('Devolver');
+        }
+    )
+
 }
 
 $(function () {

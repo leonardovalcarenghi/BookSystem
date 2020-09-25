@@ -18,7 +18,17 @@ const Request = (method = 'GET', api = '', parameters = {}, callBackOk, callback
             var response = ParseJSON(requestXHR.responseText);
 
             if (statusCode == 200) { if (IsFunction(callBackOk)) { callBackOk(response); } return this; }
-            if (statusCode == 400) { if (IsFunction(callbackError)) { callbackError(response); } return this; }
+            if (statusCode == 400) {
+
+                // Não autenticado:
+                if (response.Code == '401') {
+                    DeleteCookie('Authentication');
+                    sessionStorage['NotAuthenticated'] = 'true';
+                    window.location.href = '/'; return;
+                }
+
+                if (IsFunction(callbackError)) { callbackError(response); } return this;
+            }
             if (statusCode == 500) { if (IsFunction(callbackError)) { callbackError(response); } return this; }
 
         }

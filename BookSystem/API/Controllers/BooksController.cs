@@ -55,5 +55,19 @@ namespace BookSystem.API.Controllers
             catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
         }
 
+        [HttpPost]
+        [Route("book/giveback")]
+        public HttpResponseMessage GiveBack([FromBody] int id)
+        {
+            try
+            {
+                BookSystem.Business.Authentication.ValidateToken();
+                BookSystem.Business.Books.GiveBack(id);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (AppException AppEx) { return Request.CreateResponse(HttpStatusCode.BadRequest, AppEx.Response); }
+            catch (Exception Ex) { return Request.CreateResponse(HttpStatusCode.InternalServerError, Ex.Message); }
+        }
+
     }
 }
