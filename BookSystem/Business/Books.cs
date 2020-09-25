@@ -70,6 +70,7 @@ namespace BookSystem.Business
             try
             {
                 List<BookDTO> listOfBooks = BookSystem.DataBase.Books.GetAll(search);
+                if (listOfBooks == null) { return listOfBooks; }
                 listOfBooks.ForEach(book => { if (!book.Available) { book.RentedByMe = book.RentedBy == User.Id; } });
                 return listOfBooks;
             }
