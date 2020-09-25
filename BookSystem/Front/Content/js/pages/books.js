@@ -141,7 +141,6 @@ function RentBook(id) {
 }
 
 $(function () {
-
     // Esperar um pouco para poder ver a animação de carregamento:
     setTimeout(f => { GetList(); }, 1000);
 
@@ -150,5 +149,4 @@ $(function () {
         $('#SearchButton i').attr('class', 'fas fa-spinner spinner');
         setTimeout(f => { GetList(); }, 1000)
     });
-
 })
