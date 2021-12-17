@@ -2,7 +2,7 @@
 var Book = {}
 
 // Obter Informações do Livro //
-function GetBook(id = 0) {
+function GetBook(id = 0) { 
     Request('GET', '/book/get/' + id, null,
         data => { Book = data; ShowInformations(data); },
         error => {

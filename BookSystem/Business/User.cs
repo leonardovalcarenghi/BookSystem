@@ -58,7 +58,6 @@ namespace BookSystem.Business
         /// <summary>
         /// Obter informações do usuário pelo login (e-mail).
         /// </summary>
-
         public static UserDTO Get(string email, bool getPassword = false)
         {
             try
